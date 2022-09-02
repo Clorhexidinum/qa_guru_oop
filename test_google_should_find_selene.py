@@ -14,5 +14,6 @@ def test_wrong_search_selene_in_google():
     browser.element('[name="q"]').should(be.blank).type('selene').press_enter()
     browser.element('[id="search"]').should(have.no.text('Ответы других учеников'))
 
+
 def test_conflict_merge():
-    pass
+    print('wow !')
