@@ -16,4 +16,4 @@ def test_wrong_search_selene_in_google():
 
 
 def test_conflict_merge():
-    print('wow !')
+    print('WOW !')
