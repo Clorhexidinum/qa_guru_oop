@@ -11,7 +11,7 @@ def find_registration_button_on_login_page(page_url, button_text):
 
 
 def print_readable_name(function_name, *args):
-    function_name = function_name.__name__.title().replace('_', ' ')
+    function_name = function_name.__name__.replace('_', ' ').capitalize()
     print(f'\nИмя функции: {function_name}. Аргументы функции: ')
 
     for arg in args:
