@@ -39,7 +39,7 @@ def test_submit_form():
     browser.element('#submit').click()
 
     browser.element('.modal-content').should(be.visible)
-    browser.elements('.modal-body td+td').should(have.texts(
+    browser.all('.modal-body td+td').should(have.texts(
         'Murat Kubekov',
         'test@gmail.com',
         'Male',
