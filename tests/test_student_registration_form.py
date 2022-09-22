@@ -1,52 +1,82 @@
-import os
+from selene import have, command, by
 from selene.support.shared import browser
-from selene import have, be
 
+from demoqa_tests.model import app
+from demoqa_tests.model.pages import registration_form
+from demoqa_tests.utils import path
+from tests.test_data.users import murat
 
-def test_submit_form():
-    browser.open('/automation-practice-form')
+def test_submit_student_registration_form():
 
-    browser.element('#firstName').type('Murat')
-    browser.element('#lastName').type('Kubekov')
-    browser.element('#userEmail').type('test@gmail.com')
+    registration_form.given_opened()
 
-    browser.element('#gender-radio-1 + label').click()
+    # WHEN
 
-    browser.element('#userNumber').type('89777777777')
+    browser.element('#firstName').type(murat.first_name)
+    browser.element('#lastName').type(murat.last_name)
+    browser.element('#userEmail').type(murat.email)
 
-    # Там где 2 варианта прошу дать комментарий как более правильно
-    # browser.element('#dateOfBirthInput').should(be.blank).set_value("30 Oct 1991").press_enter()
-    browser.element('.react-datepicker-wrapper').click()
-    browser.element('.react-datepicker__month-select').type("October").press_enter()
-    browser.element('.react-datepicker__year-select').type("1991").press_enter()
-    browser.element('.react-datepicker__day[aria-label *= "October 30"]').click()
-    # browser.all('.react-datepicker__day').filter_by(have.text('30'))[1].click()
+    '''
+    browser.all('[for^=gender-radio]').by(
+        have.exact_text(murat.gender.value)
+    ).first.click()
+    
+    # OR
+    gender_male = browser.element('[for=gender-radio-1]')
+    gender_male.click()
+    # OR
+    browser.element('[id^=gender-radio][value=Male]').perform(command.js.click)
+    browser.element('[id^=gender-radio][value=Male]').element(
+        './following-sibling::*'
+    ).click()
+    # OR better:
+    browser.element('[id^=gender-radio][value=Male]').element('..').click()
+    # OR
+    browser.all('[id^=gender-radio]').element_by(have.value('Male')).element('..').click()
+    browser.all('[id^=gender-radio]').by(have.value('Male')).first.element('..').click()
+    '''
+    browser.element('#userNumber').type(murat.user_number)
 
-    browser.element('#subjectsInput').type('Computer Science').press_enter().type('English').press_enter()
+    browser.element('#dateOfBirthInput').click()
+    browser.element('.react-datepicker__month-select').send_keys(murat.birth_month)
+    browser.element('.react-datepicker__year-select').send_keys(murat.birth_year)
+    browser.element(
+        f'.react-datepicker__day--0{murat.birth_day}'
+        f':not(.react-datepicker__day--outside-month)'
+    ).click()
+    '''
+    # OR something like
+    browser.element('#dateOfBirthInput').send_keys(Keys.CONTROL, 'a').type('28 Mar 1995').press_enter()
+    '''
 
-    browser.element('#hobbies-checkbox-1 + label').click()
-    browser.element('#hobbies-checkbox-2 + label').click()
-    browser.element('#hobbies-checkbox-3 + label').click()
+    registration_form.add_subjects(murat.subjects)
 
-    browser.element('#uploadPicture').send_keys(os.path.abspath('test_files/for_test_dont_remove.jpg'))
+    for hobby in murat.hobbies:
+        # browser.element(f'//label[contains(.,"{hobby.value}")]').click()
+        # browser.element(by.text(hobby.value, tag='label')).click()
+        browser.all('[id^=hobbies]').by(have.value(hobby.value)).first.element(
+            '..'
+        ).click()
 
-    browser.element('#currentAddress').type('Moskow, Ulitsa Pushkina, dom Kolotushkina')
-    browser.element('#state').click()
-    browser.element('#state input').type('NCR').press_enter()
-    browser.element('#city').click()
-    browser.element('#city input').type('Delhi').press_enter()
+    browser.element('[id="uploadPicture"]').send_keys(
+        path.to_resource(murat.picture_file)
+    )
 
-    browser.element('#submit').click()
+    browser.element('#currentAddress').type(murat.current_address)
 
-    browser.element('.modal-content').should(be.visible)
-    browser.all('.modal-body td+td').should(have.texts(
-        'Murat Kubekov',
-        'test@gmail.com',
-        'Male',
-        '8977777777',
-        '30 October,1991',
-        'Computer Science, English',
-        'Sports, Reading, Music',
-        'for_test_dont_remove.jpg',
-        'Moskow, Ulitsa Pushkina, dom Kolotushkina',
-        'NCR Delhi'))
+    registration_form.scroll_to_bottom()
+
+    registration_form.set_state(murat.state)
+    registration_form.set_city(murat.city)
+
+    browser.element('#submit').perform(command.js.click)
+
+    # THEN
+
+    registration_form.should_have_submitted(
+        [
+            ('Student Name', f'{murat.name} {murat.last_name}'),
+            ('Student Email', murat.email),
+            ('Gender', murat.gender.value),
+        ],
+    )
