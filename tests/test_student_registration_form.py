@@ -1,6 +1,6 @@
 from demoqa_tests.model.pages import registration_form
 from tests.test_data.users import murat
-from demoqa_tests.utils import turpl_to_string
+from demoqa_tests.utils import turpl_to_string, path
 
 
 def test_submit_form():

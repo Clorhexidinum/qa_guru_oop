@@ -66,8 +66,7 @@ def set_hobbies(hobbies: Tuple[Subject]):
 
 
 def upload_file(file):
-    browser.element('#uploadPicture').send_keys(os.path.abspath(f'resources/{file}'))
-
+    browser.element('#uploadPicture').send_keys(path.to_resource(file))
 
 def set_adress(adress: str):
     browser.element('#currentAddress').type(adress)
@@ -87,6 +86,7 @@ def scroll_to_bottom():
 
 def submit():
     browser.element('#submit').perform(command.js.click)
+
 
 def assert_form_sent():
     browser.element('.modal-body').should(be.visible)
