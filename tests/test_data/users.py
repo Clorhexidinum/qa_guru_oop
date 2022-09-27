@@ -10,9 +10,12 @@ class Subject(Enum):
 
 
 class Hobby(Enum):
-    Sports = '1'
-    Reading = '2'
-    Music = '3'
+    # Sports = '1'
+    # Reading = '2'
+    # Music = '3'
+    Sports = 'Sports'
+    Reading = 'Reading'
+    Music = 'Music'
 
 
 class Gender(Enum):
@@ -21,8 +24,6 @@ class Gender(Enum):
     Other = 'Other'
 
 
-print(type(Gender.Male))
-
 
 @dataclass
 class User:
@@ -30,14 +31,14 @@ class User:
     first_name: str = 'Ivan'
     last_name: str = 'Petrov'
     email: str = 'test@gmail.com'
-    user_number: str = '89777777777'
+    phone_number: str = '89777777777'
     birth_day: str = '30'
     birth_month: str = 'October'
     birth_year: str = '1991'
-    subjects: Tuple[Subject] = (Subject.History, Subject.Physics)
-    current_address: str = 'bla bla bla'
+    subjects: Tuple[Subject] = (Subject.History, Subject.Maths)
+    current_address: str = 'Moskow'
     hobbies: Tuple[Hobby] = (Hobby.Sports, Hobby.Reading)
-    picture_file: str = 'for_test_dont_remove.jpg'
+    picture_file: str = 'picture.jpg'
     state: str = 'Haryana'
     city: str = 'Karnal'
 
