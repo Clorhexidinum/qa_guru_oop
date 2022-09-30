@@ -1,6 +1,8 @@
 import os
 import pytest
 from selene.support.shared import browser
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 
 @pytest.fixture(scope='function', autouse=True)
@@ -13,3 +15,20 @@ def browser_management():
             os.getenv('selene.hold_browser_open', 'false').lower() == 'true'
     )
     browser.config.timeout = float(os.getenv('selene.timeout', '5'))
+
+    options = Options()
+    selenoid_capabilities = {
+        "browserName": "chrome",
+        "browserVersion": "100.0",
+        "selenoid:options": {
+            "enableVNC": True,
+            "enableVideo": False
+        }
+    }
+
+    options.capabilities.update(selenoid_capabilities)
+    driver = webdriver.Remote(
+        command_executor="https://user1:1234@selenoid.autotests.cloud/wd/hub",
+        options=options)
+
+    browser.config.driver = driver
