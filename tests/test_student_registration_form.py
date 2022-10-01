@@ -26,13 +26,13 @@ def test_submit_form():
     with allure.step('В поле Mobile вводим значение "user.phone_number"'):
         registration_form.set_phone(murat.phone_number)
     with allure.step('В поле Date of Birth вводим значения "user.birth_day, user.birth_month, user.birth_year"'):
-        registration_form.type_date_of_birth(murat.birth_day, murat.birth_month, murat.birth_year)
+        registration_form.set_date_of_birth(murat.birth_day, murat.birth_month, murat.birth_year)
     with allure.step('В поле Subjects вводим значения "user.subjects"'):
         registration_form.set_subjects(murat.subjects)
     with allure.step('В поле Hobbies выбираем значения "user.subjects"'):
         registration_form.set_hobbies(murat.hobbies)
     with allure.step('В поле Picture загружаем файл "user.picture_file"'):
-        registration_form.select_pickture(murat.picture_file)
+        registration_form.select_picture(murat.picture_file)
     with allure.step('В поле Current Address выбираем значения "user.current_address"'):
         registration_form.set_adress(murat.current_address)
         registration_form.scroll_to_bottom()
