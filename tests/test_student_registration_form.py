@@ -36,7 +36,7 @@ def test_submit_form():
         registration_form.select_picture(murat.picture_file)
     with allure.step('В поле Current Address выбираем значения "user.current_address"'):
         registration_form.set_adress(murat.current_address)
-        registration_form.scroll_to_bottom()
+    registration_form.scroll_to_bottom()
     with allure.step('В поле Select state выбираем значения "user.state"'):
         registration_form.set_state(murat.state)
     with allure.step('В поле Select city выбираем значения "user.state"'):
