@@ -1,10 +1,13 @@
 import platform
 from typing import Tuple
+
 from selene import have, command
 from selene.support.shared import browser
 from demoqa_tests.model.controls import dropdown, radio, datepicker, checkbox
 from demoqa_tests.model.data import users
 from selenium.webdriver.common.keys import Keys
+
+from demoqa_tests.model.data.users import Subject
 from demoqa_tests.utils import path
 
 state = browser.element('#state')
@@ -30,21 +33,21 @@ def set_email(email: str):
 
 
 def set_gender(gender: users.Gender):
-    radio.select(gender)
+    radio.select('gender-radio', gender)
 
 
 def set_phone(phone: str):
     browser.element('#userNumber').type(phone)
 
 
-def set_date_of_birth(date: list):
+def select_date_of_birth(date: list):
     browser.element('#dateOfBirthInput').click()
     datepicker.select_month(date[1])
     datepicker.select_year(date[2])
     datepicker.select_day(date[1], date[0])
 
 
-def type_date_of_birth(day, month, year):
+def set_date_of_birth(day, month, year):
     format_str = f'{day} {month},{year}'
     os_base = platform.system()
     if os_base == 'Darwin':
@@ -55,15 +58,21 @@ def type_date_of_birth(day, month, year):
 
 def set_subjects(values: users.Subject):
     for subject in values:
-        browser.element('#subjectsInput').type(subject.value).press_enter().press_escape()
+        browser.element('#subjectsInput').type(subject.value).press_enter()
 
 
 def set_hobbies(hobbies: users.Hobby):
     for hobby in hobbies:
-        checkbox.select(hobby.value)
+        checkbox.select('hobbies-checkbox', hobby.value)
+
+# я хз почему не работает, пишет AttributeError: 'tuple' object has no attribute 'value'
+# def set_hobbies(*options: users.Hobby):
+#     checkbox.select(*[option.value for option in options])
+#     # for hobby in hobbies:
+#     #     checkbox.select('hobbies-checkbox', hobby.value)
 
 
-def select_pickture(file):
+def select_picture(file):
     browser.element('#uploadPicture').send_keys(path.to_resource(file))
 
 

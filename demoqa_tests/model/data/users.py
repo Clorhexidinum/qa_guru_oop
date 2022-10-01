@@ -21,7 +21,6 @@ class Gender(Enum):
     Other = 'Other'
 
 
-
 @dataclass
 class User:
     gender: Enum = Gender.Male
@@ -32,9 +31,9 @@ class User:
     birth_day: str = '30'
     birth_month: str = 'October'
     birth_year: str = '1991'
-    subjects: Tuple[Subject] = (Subject.History, Subject.Maths)
+    subjects: Enum = (Subject.History, Subject.Maths)
     current_address: str = 'Moscow'
-    hobbies: Tuple[Hobby] = (Hobby.Sports, Hobby.Reading)
+    hobbies: Enum = (Hobby.Sports, Hobby.Reading)
     picture_file: str = 'picture.jpg'
     state: str = 'Haryana'
     city: str = 'Karnal'
