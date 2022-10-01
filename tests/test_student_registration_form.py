@@ -3,7 +3,7 @@ from allure_commons.types import Severity
 from demoqa_tests.model.pages import registration_form
 from demoqa_tests.model.assertions import registration_popup
 from demoqa_tests.model.data.users import murat
-from demoqa_tests.utils import turpl_to_string
+from demoqa_tests.utils import turpl_to_string, attach
 
 
 @allure.tag("web")
@@ -44,6 +44,12 @@ def test_submit_form():
         registration_form.submit()
     with allure.step("Проверяем что появился попап"):
         registration_popup.should_visible()
+
+    attach.add_screenshot()
+    attach.add_logs()
+    attach.add_html()
+    attach.add_video()
+
     with allure.step("Проверяем данные в попапе"):
         registration_popup.should_have_submitted(
             [
