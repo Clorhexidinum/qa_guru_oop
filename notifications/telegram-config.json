@@ -1,7 +1,7 @@
 {
   "base": {
-    "project": "some project",
-    "environment": "some env",
+    "project": "Demo QA",
+    "environment": "QA.Guru",
     "comment": "some comment",
     "reportLink": "",
     "language": "en",

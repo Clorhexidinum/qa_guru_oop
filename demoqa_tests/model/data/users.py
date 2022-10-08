@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from enum import Enum
-from typing import Tuple
 
 
 class Subject(Enum):
@@ -20,6 +19,13 @@ class Gender(Enum):
     Female = 'Female'
     Other = 'Other'
 
+
+# def format_input_date(value: datetime.date):
+#     return value.strftime(demoqa_tests.config.datetime_input_format)
+#
+#
+# def format_view_date(value: datetime.date):
+#     return value.strftime(demoqa_tests.config.datetime_view_format)
 
 @dataclass
 class User:

@@ -1,7 +1,7 @@
 from selene.support.conditions import be, have
 from selene.support.shared import browser
 
-from demoqa_tests.model.controls import modal
+from demoqa_tests.model.components import modal
 
 
 def should_visible():

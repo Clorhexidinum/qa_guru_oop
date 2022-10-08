@@ -6,3 +6,5 @@ https://api.telegram.org/bot5402503709:AAHu0RNppAaShoeAm32SxGM2I_90fuCwsnk/getUp
 curl -X POST -H 'Content-Type: application/json' -d '{"chat_id": "-1001714693858", "text": "This is a test from curl", "disable_notification": true}' https://api.telegram.org/bot5402503709:AAHu0RNppAaShoeAm32SxGM2I_90fuCwsnk/sendMessage
 
 java "-DconfigFile=notifications/telegram-config.json" -jar notifications/allure-notifications-4.2.1.jar
+
+
