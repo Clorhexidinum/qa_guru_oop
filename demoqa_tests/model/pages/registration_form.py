@@ -58,10 +58,9 @@ class RegistrationForm:
         return self
 
     # я хз почему не работает, пишет AttributeError: 'tuple' object has no attribute 'value'
-    # def set_hobbies(*options: users.Hobby):
-    #     checkbox.select(*[option.value for option in options])
-    #     # for hobby in hobbies:
-    #     #     checkbox.select('hobbies-checkbox', hobby.value)
+    # def set_hobbies(self, *options: users.Hobby):
+    #     self.hobby_checkbox.select(*[option.value for option in options])
+    #     return self
 
     def select_picture(self, file):
         browser.element('#uploadPicture').send_keys(path.to_resource(file))
