@@ -37,26 +37,26 @@ def browser_management():
 
     # browser_version = request.config.getoption('--browser_version')
     # browser_version = browser_version if browser_version != "" else DEFAULT_BROWSER_VERSION
-    options = Options()
-    selenoid_capabilities = {
-        "browserName": "chrome",
-        "browserVersion": "100.0",
-        "selenoid:options": {
-            "enableVNC": True,
-            "enableVideo": True
-        }
-    }
+    # options = Options()
+    # selenoid_capabilities = {
+    #     "browserName": "chrome",
+    #     "browserVersion": "100.0",
+    #     "selenoid:options": {
+    #         "enableVNC": True,
+    #         "enableVideo": True
+    #     }
+    # }
 
     # login = os.getenv('LOGIN')
     # password = os.getenv('PASSWORD')
 
-    options.capabilities.update(selenoid_capabilities)
-    driver = webdriver.Remote(
-        # command_executor=f"https://{login}:{password}@selenoid.autotests.cloud/wd/hub",
-        command_executor="https://user1:1234@selenoid.autotests.cloud/wd/hub",
-        options=options)
-
-    browser.config.driver = driver
+    # options.capabilities.update(selenoid_capabilities)
+    # driver = webdriver.Remote(
+    #     # command_executor=f"https://{login}:{password}@selenoid.autotests.cloud/wd/hub",
+    #     command_executor="https://user1:1234@selenoid.autotests.cloud/wd/hub",
+    #     options=options)
+    #
+    # browser.config.driver = driver
 
     yield
 
